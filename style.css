@@ -22,7 +22,7 @@ h1 {
 	height: 500px;
 }
 #legend table {
-    margin: 20px auto;
+    margin: 45px auto 15px;
     font-weight: bold;
 }
 #legend .legendColorBox {
