@@ -1,0 +1,33 @@
+/* 
+Styles for Example Bar Chart
+@dosberg
+*/
+
+body {
+	text-align: center;
+	padding: 60px;
+	font-family: arial;
+}
+#placeholder {
+    width: 600px;
+    height: 400px;
+}
+h1 {
+	font-size:36px;
+}
+.container {
+	position: relative;
+	margin: 0 auto;
+	width: 600px;
+	height: 500px;
+}
+#legend table {
+    margin: 20px auto;
+    font-weight: bold;
+}
+#legend .legendColorBox {
+    padding-right: 3px;
+}
+#legend .legendLabel {
+    padding-right: 15px;
+}

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	    <title>Bar chart built with Flot</title>
+	    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+		<script language="javascript" type="text/javascript" src="jquery.flot.js"></script>
+	    <script language="javascript" type="text/javascript" src="jquery.flot.orderBars.js"></script>
+	    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.8.0/build/cssreset/cssreset-min.css">
+	    <link rel="stylesheet" href="style.css">
+	
+		<script>
+		$(function () {
+		    var id = "#placeholder";
+		   
+		   	// El Data
+		    var data_you = [
+		        [1, 20],
+		        [2, 20],
+		        [3, 50],
+		        [4, 10]
+		    ];
+		 
+		    var data_rec = [
+		        [1, 80],
+		        [2, 5],
+		        [3, 5],
+		        [4, 10]
+		    ];
+		 
+		    var data = [
+		        {
+		            label: "You",
+		            data: data_you,
+		            bars: {
+		                show: true,
+		                fill: true,
+		                barWidth: 0.3,
+		                order: 1,
+		                fillColor:  "#568cea"
+		            },
+		            color: "#568cea" // Bar border color
+		        },
+		        {
+		            label: "Our Recommendation",
+		            data: data_rec,
+		            bars: {
+		                show: true,
+		                fill: true,
+		                barWidth: 0.3,
+		                order: 2,
+		                fillColor:  "#b4e297"
+		            },
+		            color: "#b4e297" // Bar border color
+		        }
+		       ]
+
+		    var options = {
+		        xaxis: {
+		            ticks: [[1,'Stocks'], [2,'Mutual Funds'], [3,'Funds'], [4,'Cash']],
+		            font: {
+						size: 14,
+					    weight: "bold",
+					    family: "sans-serif",  	
+		        	}
+		        },
+		        yaxis: {
+		        	font: {
+						size: 13,
+					    weight: "bold",
+					    family: "sans-serif", 
+					    align: "right" 	
+		        	},
+		        	show: true,
+		        	labelWidth: 30
+		        },      
+
+		        grid: {
+		            borderWidth: 1,
+		            borderColor: '#cccccc',
+		            clickable: true,
+		            hoverable: true,
+		        },
+		        legend: { 
+		        	show:true, 
+		        	noColumns: 0,
+		        	location: 'ne', 
+		        	container: '#legend'
+		        }
+		    };
+			
+			 // add some hovering logic to each point...
+		   
+		    $("#placeholder").bind("plothover", function (event, pos, item) {
+
+			$("#x").text(pos.x.toFixed(0));
+			$("#y").text(pos.y.toFixed(0));
+
+		            if (item) {
+		            
+		            	$("#tooltip").remove();
+						var x = item.datapoint[0].toFixed(0), y = item.datapoint[1].toFixed(0);				
+						showTooltip(item.pageX, item.pageY, item.series.label + " " + y + "%"); 
+						$('canvas').css('cursor', 'pointer');
+					}
+		            else {
+		                $("#tooltip").remove();
+		                previousPoint = null;            
+		            }
+		    });
+
+		    // show the tooltip
+		    function showTooltip(x, y, contents) {
+		        $('<div id="tooltip"> ' + contents + '</div>').css( {
+		            position: 'absolute',
+		            display: 'none',
+		            top: y - 35,
+		            left: x + 5,
+		            border: '1px solid #ccc',
+		            padding: '20px',
+		            'background-color': '#fff',
+		            opacity: 0.95
+		        }).appendTo("body").fadeIn(200);
+		    }
+
+	    	$.plot($(id), data, options);
+		});
+	</script>
+	</head>
+	<body>
+		<h1>Overall Allocations</h1>
+		<div class="container">
+			<div id="legend"></div>	
+			<div id="placeholder"></div>
+    	</div>
+    	<p>Bar chart built with <a href="http://www.flotcharts.org/">Flot</a></p>
+    	<p><a href="http://twitter.com/dosberg">@dosberg</a>
+	</body>
+</html>
